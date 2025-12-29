@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Web Activity Tracker",
+  "version": "1.0",
+  "description": "Tracks web activity and shows daily AI-categorized reports.",
+  
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage",
+    "alarms",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "action": {
+  "default_popup": "POPUPP/dist/index.html",
+  "default_title": "Time Tracker"
+},
+
+  "icons": {
+    "48": "icon.png"
+  }
+}
+
