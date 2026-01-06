@@ -2,15 +2,10 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [report, setReport] = useState({});
+  // const [report, setReport] = useState({});
   const [logs,setLogs]=useState([]);
-  useEffect(() => {
-    chrome.storage.local.get(["logs"], (res) => {
-      // setLogs(res.logs || []);
-      setReport(res.todayReport || {});
-    });
-  }, []);
-
+  //CHANGE: aggregated logs state
+  const [aggregatedLogs, setAggregatedLogs] = useState({});
   useEffect(() => {
     function handleStorageChange(changes, area) {
       if (area === "local") {
@@ -20,6 +15,10 @@ function App() {
         // if (changes.todayReport) {
         //   setReport(changes.todayReport.newValue || {});
         // }
+        //CHANGE: listen for aggregatedLogs
+        if (changes.aggregatedLogs) {
+          setAggregatedLogs(changes.aggregatedLogs.newValue || {});
+        }
       }
     }
   
@@ -32,16 +31,19 @@ function App() {
   
 
   useEffect(() => {
-    chrome.storage.local.get("logs", (res) => {
+    chrome.storage.local.get(["logs","aggregatedLogs"], (res) => {
       setLogs(res.logs || []);
+      //CHANGE: load aggregated logs on popup open
+      setAggregatedLogs(res.aggregatedLogs || {});
     });
   }, []);
 
-  useEffect(() => {
-    chrome.storage.local.get("todayReport", (res) => {
-      setReport(res.todayReport || {});
-    });
-  }, []);
+  // useEffect(() => {
+  //   chrome.storage.local.get("todayReport", (res) => {
+  //     setReport(res.todayReport || {});
+  //   });
+  // }, []);
+
 
   const openDashboard = () => {
     chrome.tabs.create({
@@ -70,7 +72,19 @@ function App() {
           </p>
         ))
       )} */}
-
+      {/*CHANGE: Aggregated logs */}
+      <h4>Aggregated Time</h4>
+      {Object.keys(aggregatedLogs).length === 0 ? (
+        <p>No aggregated data yet.</p>
+      ) : (
+        <ul>
+          {Object.entries(aggregatedLogs).map(([site, time]) => (
+            <li key={site}>
+              {site}: {Math.round(time / 1000)} sec
+            </li>
+          ))}
+        </ul>
+      )}
       <button onClick={openDashboard}>
         View Dashboard
       </button>

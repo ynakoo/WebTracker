@@ -45,10 +45,20 @@ Output example:
 
     const data = await response.json();
     console.log(data)
-    const new_data = JSON.parse(data.candidates[0].content.parts[0].text)
+    let new_data
+    try {
+      new_data = JSON.parse(data.candidates[0].content.parts[0].text);
+    } 
+    catch (err) {
+      return res.status(500).json({
+        err: "Invalid JSON from Gemini"
+      });
+    }
     console.log(new_data)
-    res.status(201).json(new_data);
+    return res.status(201).json(new_data);
   });
+
+
 app.listen(3000,()=>{
     console.log('server started')
 })
