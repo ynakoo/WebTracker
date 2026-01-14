@@ -67,7 +67,7 @@ chrome.windows.onFocusChanged.addListener(async(windowId)=>{
     } 
     }
 })
-chrome.alarms.create("dailyAnalysis",{ periodInMinutes: 2 })
+chrome.alarms.create("dailyAnalysis",{ periodInMinutes: 1440 })
 chrome.alarms.onAlarm.addListener(async(alarm)=>{
     console.log('hello')
     if (alarm.name==="dailyAnalysis"){

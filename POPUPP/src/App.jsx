@@ -58,7 +58,7 @@ function App() {
       <ul>
         {logs.map((item) => (
           <li key={item.id}>
-            website: {item.currentTab}, timeSpent: {item.duration}
+            website: {item.currentTab}, timeSpent: {Math.round(item.duration / 1000)}
           </li>
         ))}
       </ul>
