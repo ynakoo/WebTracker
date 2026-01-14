@@ -16,6 +16,7 @@ function App() {
         setReportStatus("null");
         return;
       }
+      console.log('todayReport')
       const formatted = Object.entries(res.todayReport).map(([name, value]) => ({ name, value }));
       setData(formatted);
       setReportStatus("ready");

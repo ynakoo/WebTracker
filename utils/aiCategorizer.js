@@ -7,7 +7,9 @@ async function categorizeLogs(summary) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ domains })
   });
+  console.log(res)
   const categories = await res.json();
+  console.log(res)
   if (res.err) {
     return null
   }

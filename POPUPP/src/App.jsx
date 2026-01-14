@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   // const [report, setReport] = useState({});
-  const [logs,setLogs]=useState([]);
+  const [logs, setLogs] = useState([]);
   //CHANGE: aggregated logs state
   const [aggregatedLogs, setAggregatedLogs] = useState({});
   useEffect(() => {
@@ -21,17 +21,17 @@ function App() {
         }
       }
     }
-  
+
     chrome.storage.onChanged.addListener(handleStorageChange);
-  
+
     return () => {
       chrome.storage.onChanged.removeListener(handleStorageChange);
     };
   }, []);
-  
+
 
   useEffect(() => {
-    chrome.storage.local.get(["logs","aggregatedLogs"], (res) => {
+    chrome.storage.local.get(["logs", "aggregatedLogs"], (res) => {
       setLogs(res.logs || []);
       //CHANGE: load aggregated logs on popup open
       setAggregatedLogs(res.aggregatedLogs || {});
@@ -80,7 +80,7 @@ function App() {
         <ul>
           {Object.entries(aggregatedLogs).map(([site, time]) => (
             <li key={site}>
-              {site}: {Math.round(time / 1000)} sec
+              {site}: {Math.round(time / 60000)} min
             </li>
           ))}
         </ul>

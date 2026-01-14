@@ -67,35 +67,59 @@ chrome.windows.onFocusChanged.addListener(async(windowId)=>{
     } 
     }
 })
-chrome.alarms.create("dailyAnalysis",{ periodInMinutes: 1440 })
-chrome.alarms.onAlarm.addListener(async(alarm)=>{
-    console.log('hello')
-    if (alarm.name==="dailyAnalysis"){
-        saveTab()
-        startTime = Date.now()
-        // const dailyLogs = await agrregateDailyLogs()
-        // console.log(dailyLogs)
-        //CHANGE: also update aggregated logs on alarm
-        // chrome.storage.local.set({
-        //     logs: [],
-        //     aggregatedLogs: {},
-        //     todayReport: null
-        // })
+// chrome.alarms.create("dailyAnalysis",{ periodInMinutes: 2 })
+// chrome.alarms.onAlarm.addListener(async(alarm)=>{
+//     console.log('hello')
+//     if (alarm.name==="dailyAnalysis"){
+//         saveTab()
+//         startTime = Date.now()
+//         // const dailyLogs = await agrregateDailyLogs()
+//         // console.log(dailyLogs)
+//         //CHANGE: also update aggregated logs on alarm
+//         // chrome.storage.local.set({
+//         //     logs: [],
+//         //     aggregatedLogs: {},
+//         //     todayReport: null
+//         // })
+//         //CHANGE: read aggregated logs directly from storage
+//         chrome.storage.local.get(["aggregatedLogs"], (res) => {
+//             const dailyLogs = res.aggregatedLogs || {}
+//             console.log(dailyLogs)
+//             const todayReport = await categorizeLogs(dailyLogs)
+//             chrome.storage.local.set({
+//                 dailyLogs,           // store snapshot
+//                 logs: [],
+//                 aggregatedLogs: {},
+//                 todayReport: null
+//             })
+//             // console.log(todayReport)
+//         })
+//     }
+// })
+chrome.alarms.create("dailyAnalysis", { periodInMinutes: 1 });
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name !== "dailyAnalysis") return;
 
+  console.log("hello");
 
+  saveTab();
+  const startTime = Date.now();
 
-        //CHANGE: read aggregated logs directly from storage
-        chrome.storage.local.get(["aggregatedLogs"], (res) => {
-            const dailyLogs = res.aggregatedLogs || {}
-            console.log(dailyLogs)
-            // const todayReport = await categorizeLogs(dailyLogs)
-            chrome.storage.local.set({
-                dailyLogs,           // store snapshot
-                logs: [],
-                aggregatedLogs: {},
-                todayReport: null
-            })
-            // console.log(todayReport)
-        })
-    }
-})
+  try {
+    const { aggregatedLogs = {} } = await chrome.storage.local.get("aggregatedLogs");
+
+    console.log(aggregatedLogs);
+
+    const todayReport = await categorizeLogs(aggregatedLogs);
+    console.log(todayReport)
+    await chrome.storage.local.set({
+      dailyLogs: aggregatedLogs, // snapshot
+      logs: [],
+      aggregatedLogs: {},
+      todayReport
+    });
+
+  } catch (err) {
+    console.error("Daily analysis failed:", err);
+  }
+});
