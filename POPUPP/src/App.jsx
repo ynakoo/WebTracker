@@ -55,13 +55,13 @@ function App() {
     <div className="popup">
       <h3>Today Summary</h3>
 
-      <ul>
+      {/* <ul>
         {logs.map((item) => (
           <li key={item.id}>
             website: {item.currentTab}, timeSpent: {Math.round(item.duration / 1000)}
           </li>
         ))}
-      </ul>
+      </ul> */}
 
       {/* {Object.keys(report).length === 0 ? (
         <p>No data for today yet.</p>
@@ -73,7 +73,7 @@ function App() {
         ))
       )} */}
       {/*CHANGE: Aggregated logs */}
-      <h4>Aggregated Time</h4>
+      {/* <h4>Aggregated Time</h4> */}
       {Object.keys(aggregatedLogs).length === 0 ? (
         <p>No aggregated data yet.</p>
       ) : (
