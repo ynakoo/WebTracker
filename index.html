@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Activity Tracker - Install Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --accent: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 40%);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title span {
+            background: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .instruction-list {
+            list-style: none;
+        }
+
+        .instruction-item {
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .instruction-item div {
+            flex: 1;
+        }
+
+        .instruction-item strong {
+            display: block;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .instruction-item p {
+            color: var(--text-dim);
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            color: var(--accent);
+            font-size: 0.9em;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 20px;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+        }
+
+        .download-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.5);
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        .status-circle {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="tag">Local Development Version</div>
+            <h1>Web Activity Tracker</h1>
+            <p class="subtitle">Monitor your browsing habits and gain insights into your digital life with AI-powered categorization.</p>
+        </header>
+
+        <main>
+            <div class="glass-card">
+                <h2 class="section-title"><span>1</span> Download Extension</h2>
+                <p>To use the extension locally, you need to download the source files. The components have already been initialized and built for your convenience.</p>
+                <p style="margin-top: 10px; color: var(--text-dim);"><em>zipFile Here</em></p>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title"><span>2</span> Installation Steps</h2>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <div>
+                            <strong>Open Chrome Extensions</strong>
+                            <p>In your Chrome browser, type <code>chrome://extensions/</code> in the address bar and press Enter.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div>
+                            <strong>Enable Developer Mode</strong>
+                            <p>Toggle the <strong>"Developer mode"</strong> switch in the top right corner of the extension management page.</p>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <div>
+                            <strong>Load Unpacked Extension</strong>
+                            <p>Click the <strong>"Load unpacked"</strong> button and select the <code>WebTracker</code> folder (the one containing <code>manifest.json</code>).</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass-card">
+                <h2 class="section-title"><span>3</span> Initialisation Commands</h2>
+                <p>If you wish to rebuild the extension components from source, use the following commands:</p>
+                <div style="margin-top: 20px; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                    <p style="color: var(--accent); margin-bottom: 15px;"># Build POPUP component</p>
+                    <code style="display: block; padding: 10px; margin-bottom: 15px; border-left: 2px solid var(--primary);">cd POPUPP && npm install && npm run build</code>
+                    
+                    <p style="color: var(--accent); margin-bottom: 15px;"># Build DASHBOARD component</p>
+                    <code style="display: block; padding: 10px; border-left: 2px solid var(--primary);">cd DASHBOARD && npm install && npm run build</code>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 Web Activity Tracker. Built for productivity.</p>
+        </footer>
+    </div>
+</body>
+</html>
