@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000"; // CHANGE THIS to your hosted backend URL (e.g., https://your-app.onrender.com)
+const API_URL = "https://webtracker-0d7p.onrender.com"; // CHANGE THIS to your hosted backend URL (e.g., https://your-app.onrender.com)
 
 async function categorizeLogs(summary) {
   const domains = Object.keys(summary);

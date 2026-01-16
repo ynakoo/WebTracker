@@ -80,7 +80,7 @@ function App() {
         <ul>
           {Object.entries(aggregatedLogs).map(([site, time]) => (
             <li key={site}>
-              {site}: {Math.round(time / 60000)} min
+              {site}: {Math.round(time / 1000)} sec
             </li>
           ))}
         </ul>
